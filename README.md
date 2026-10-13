@@ -53,14 +53,14 @@ The tree mirrors the LR numbering (same layout as the Swiss SR in LawCodex/ch):
 ```
 1/10/101-verfassung-des-furstentums-liechtenstein-vom-5-oktober-1921.md   LR 101
 2/21/210.0-allgemeines-burgerliches-gesetzbuch-vom-1-juni-1811.md
-3/31/311.0-stgb.md
-0/0.1/0.10/0.101-....md                                                   LR 0.101 (ECHR)
+3/31/311.0-strafgesetzbuch-stgb-vom-24-juni-1987.md
+0/0.1/0.10/0.101-konvention-vom-4-november-1950-zum-schutze-der-menschenrecht.md   LR 0.101 (ECHR)
 0/0.1/0.11/0.110-....md                                                   EEA Agreement and annexes
 ```
 
 Domestic law: `<1st digit>/<first 2 digits>/<LR>-<slug>.md`; international law:
 `0/0.<d>/0.<dd>/<LR>-<slug>.md`. The slug is the official abbreviation when the title ends with
-one (e.g. `stgb`, `glg`), otherwise the beginning of the title. When several texts share an
+one (e.g. `urg`, `glg`), otherwise the beginning of the title. When several texts share an
 LR number (e.g. the annexes of the EEA Agreement, LR 0.110), each has its own file.
 The EEA texts under LR 0.110 (more than 1,400 files, mostly EEA Joint Committee decisions
 0.110.0NN.x) get one more directory level, `0/0.1/0.11/0.110.0NN/`, so that no directory exceeds
