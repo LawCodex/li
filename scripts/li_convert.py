@@ -26,7 +26,7 @@ MONTHS["maerz"] = 3
 
 PARA = {"ab", "abs", "abge", "zust", "inkr", "inkrfl", "urkund", "geschehen", "folgen", "zent",
         "vorbehaltland", "vorbehalttit", "vom", "htit1", "htit2", "htit3", "unterschrift", "ort",
-        "fuerst", "regierung", "sig", "unt"}
+        "fuerst", "regierung", "sig", "unt", "udat", "gezr", "gez", "dat"}
 LIST = {"bst1", "bst2", "bst3", "bst4", "ziff", "ziff1", "ziff2", "ziff3", "strich", "strich1",
         "strich2", "roem", "lit", "aufz", "aufz1", "aufz2"}
 unknown = Counter()

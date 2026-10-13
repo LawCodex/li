@@ -40,7 +40,8 @@ def get(url, binary=False, tries=5):
         except requests.RequestException as e:
             print("ERR", e, url, file=sys.stderr)
         time.sleep(5 * (i + 1))
-    raise RuntimeError("failed " + url)
+    print("FAILED", url, file=sys.stderr)
+    return None
 
 
 def list_texts(date):
@@ -67,7 +68,9 @@ def fetch_one(it):
     meta_f = os.path.join(d, it["id"] + ".page.html")
     if not os.path.exists(meta_f):
         t = get(f"{BASE}/konso/{it['id']}")
-        open(meta_f, "w").write(t or "")
+        if not t:
+            return it["id"]
+        open(meta_f, "w").write(t)
         time.sleep(0.5)
     page = open(meta_f).read()
     m = re.search(r'<option selected="selected" value="(\d+)">([^<]*)</option>', page)
@@ -76,7 +79,9 @@ def fetch_one(it):
     if not os.path.exists(txt_f):
         url = f"{BASE}/konso/html/{it['id']}" + (f"?version={ver}" if ver else "")
         t = get(url, binary=True)
-        open(txt_f, "wb").write(t or b"")
+        if not t:
+            return it["id"]
+        open(txt_f, "wb").write(t)
         time.sleep(0.5)
     return it["id"]
 
