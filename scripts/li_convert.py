@@ -26,8 +26,8 @@ MONTHS["maerz"] = 3
 
 PARA = {"ab", "abs", "abge", "zust", "inkr", "inkrfl", "urkund", "geschehen", "folgen", "zent",
         "vorbehaltland", "vorbehalttit", "vom", "htit1", "htit2", "htit3", "unterschrift", "ort",
-        "fuerst", "regierung", "sig", "unt", "udat", "gezr", "gez", "dat"}
-LIST = {"bst1", "bst2", "bst3", "bst4", "ziff", "ziff1", "ziff2", "ziff3", "strich", "strich1",
+        "fuerst", "regierung", "sig", "unt", "udat", "gezr", "gez", "dat", "gezf", "inheintrag", "beitritt"}
+LIST = {"gbst", "bst1", "bst2", "bst3", "bst4", "ziff", "ziff1", "ziff2", "ziff3", "strich", "strich1",
         "strich2", "roem", "lit", "aufz", "aufz1", "aufz2"}
 unknown = Counter()
 
@@ -233,7 +233,7 @@ class Doc:
             self.notes.append(f"[^{num}]: {clean(inline(d))}")
             return
         m = re.match(r"tit(\d)(m?)$", cls)
-        if m or cls == "tits":
+        if m or cls in ("tits", "tit1ue", "titpraeambel"):
             lvl = min(6, (int(m.group(1)) if m else 1) + 1)
             txt = clean(inline(d)).replace("\n", " ")
             if m and m.group(2):
@@ -258,7 +258,7 @@ class Doc:
                 if isinstance(c, Tag) and c.name == "a" and not c.get("href"):
                     c.extract()
                     continue
-                label += inline(c) if isinstance(c, Tag) else str(c)
+                label += inline_nodes([c])
                 c.extract()
             label = clean(label).replace("\n", " ")
             if label:
@@ -364,6 +364,9 @@ def rel_path(it, used):
             d.append("0." + segs[1][:1])
             if len(segs[1]) >= 2:
                 d.append("0." + segs[1][:2])
+            if segs[1] == "110" and len(segs) >= 3:
+                # EEA: >1,400 texts (Joint Committee decisions 0.110.0NN.x) -> one more level
+                d.append(".".join(segs[:3]))
     else:
         d = [lr[0]]
         head = lr.split(".")[0]
